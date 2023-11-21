@@ -2,6 +2,7 @@ import { ClipboardList } from 'lucide-react'
 import { ITask } from '../../App'
 import { Task } from '../Task'
 import styles from './tasks.module.css'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 interface Props {
   tasks: ITask[]
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function Tasks({ tasks, onComplete, onDelete }: Props) {
+  const [parent] = useAutoAnimate()
   const tasksQuantity = tasks.length
   const completedTasks = tasks.filter((task) => task.isCompleted).length
 
@@ -29,7 +31,7 @@ export function Tasks({ tasks, onComplete, onDelete }: Props) {
         </div>
       </header>
 
-      <div className={styles.list}>
+      <div ref={parent} className={styles.list}>
         {tasks.map((task) => (
           <Task
             key={task.id}
